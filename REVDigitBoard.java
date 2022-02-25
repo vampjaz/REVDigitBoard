@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3216.robot; // might need to change this number
+package frc.robot;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
@@ -26,13 +26,13 @@ public class REVDigitBoard {
 	AnalogInput pot;
 	
 	byte[][] charreg;
-	Map charmap;
+	HashMap<Character, Integer> charmap;
 	
 	REVDigitBoard() {
 		i2c = new I2C(Port.kMXP, 0x70);
 		buttonA = new DigitalInput(19);
 		buttonB = new DigitalInput(20);
-		pot = new AnalogInput(3);
+		pot = new AnalogInput(7);
 		
 		byte[] osc = new byte[1];
 	 	byte[] blink = new byte[1];
@@ -45,7 +45,7 @@ public class REVDigitBoard {
 		Timer.delay(.01);
 		i2c.writeBulk(bright);
 		Timer.delay(.01);
-		//i2c.writeBulk(blink);
+		i2c.writeBulk(blink);
 		Timer.delay(.01);
 		
 		charreg = new byte[37][2]; //charreg is short for character registry
@@ -189,7 +189,6 @@ public class REVDigitBoard {
  		byte1[9] = charreg[charz[0]][1];
  		//send the array to the board
  		i2c.writeBulk(byte1);
- 		Timer.delay(0.01);
 	}
 	
 	String repeat(char c, int n) {
@@ -199,5 +198,3 @@ public class REVDigitBoard {
 	}
 	
 }
-
-
